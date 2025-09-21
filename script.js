@@ -1,23 +1,21 @@
-function getComputerChoice (max){
-    let num = Math.floor(Math.random() * max);
+function getComputerChoice (){
+    let num = Math.floor(Math.random() * 3);
 
     if (num==0) {
-        console.log("rock");
+        console.log("computer rock");
         return "rock";
     } else if (num==1) {
-        console.log("paper");
+        console.log("computer paper");
         return "paper";
     } else {
-        console.log("scissor");
+        console.log("computer scissor");
         return "scissor";
         
     }
 }
 
-function getHumanChoice(){
-    let userInput = prompt("What will you play")
-    console.log(userInput)
-    return userInput
+function getHumanChoice(i){
+    return i.textContent
 }
 
 
@@ -72,11 +70,49 @@ function playRound(humanChoice, computerChoice) {
 }
 
 
-for(i=0; i<2; i++){
-    playRound(getHumanChoice(),getComputerChoice());
-    console.log(humanScore);
-    console.log(computerScore);
-}
+let rock = document.createElement("button")
+let paper = document.createElement("button")
+let scissor = document.createElement("button")
+let result = document.createElement("div")
+
+
+rock.textContent="Rock"
+paper.textContent="Paper"
+scissor.textContent="Scissor"
+result.textContent=`Computer score is ${computerScore} || Human score is ${humanScore}`
+
+
+
+
+document.body.appendChild(rock)
+document.body.appendChild(paper)
+document.body.appendChild(scissor)
+document.body.appendChild(result)
+
+
+const buttons = document.querySelectorAll("button");
+
+
+
+buttons.forEach(button => {
+  button.addEventListener("click", (event) => {
+    playRound(getHumanChoice(button), getComputerChoice());
+    result.textContent=`Computer score is ${computerScore} || Human score is ${humanScore}`;
+    if (computerScore>=5) {
+        alert("Winner is computer")
+        //buttons.forEach(button => {button.removeEventListener("click")})
+    } else if (humanScore>=5) {
+        alert("Winner is human")
+        //buttons.forEach(button => {button.removeEventListener("click")})
+    }
+  });
+});
+
+
+
+
+
+
 
 
 
